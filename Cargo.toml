@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["INFINI Labs <hello@infini.ltd>"]
 edition = "2021"
 license = "MIT"
-description = "Arabic language analysis for INFINI Pizza"
+description = "Arabic text analysis plugin for INFINI Pizza"
 repository = "https://pizza.rs"
 keywords = ["pizza", "arabic", "stemmer", "normalization", "nlp"]
 
