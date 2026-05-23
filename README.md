@@ -1,49 +1,70 @@
-# pizza-analysis-arabic
+<div align="center">
 
-Arabic language analysis with diacritics removal, letter form normalization, light stemming, and stop words.
+# 🇸🇦 pizza-analysis-arabic
 
-Part of the [Pizza](https://pizza.rs) search engine.
+**Arabic text analysis plugin for [INFINI Pizza](https://pizza.rs)**
+
+[![Crate](https://img.shields.io/badge/crate-pizza--analysis--arabic-blue)](https://github.com/pizza-rs/analysis-arabic)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+</div>
+
+---
+
+## Overview
+
+Arabic language analysis with orthographic normalization, light stemming, and stop words.
+Handles Arabic script variations including Alef forms, Taa Marbuta, and Hamza normalization.
 
 ## Components
 
-| Name | Type | Description |
-|------|------|-------------|
-| `arabic_normalization` | Token Filter | Removes diacritics (tashkeel), tatweel, normalizes Alef/Yeh/Teh Marbuta forms |
-| `arabic_stem` | Token Filter | Light Arabic stemmer — removes definite articles and common affixes |
-| `arabic_stop` | Token Filter | Arabic stop words filter (119 words) |
-| `arabic` | Analyzer | Full pipeline: lowercase → normalization → stop → stem |
+| Type | Name | Description |
+|:-----|:-----|:------------|
+| TokenFilter | `arabic_normalization` | Normalize Alef/Ya/Taa Marbuta/Tatweel/Hamza |
+| TokenFilter | `arabic_stem` | Light Arabic stemmer (prefix/suffix removal) |
+| TokenFilter | `arabic_stop` | Arabic stop words (119 entries) |
+| Analyzer | `arabic` | Full pipeline: lowercase → normalization → stem → stop |
 
-## Usage
+### Normalization Rules
 
-### Built-in Analyzer
+| Input | Output | Rule |
+|:------|:-------|:-----|
+| أ إ آ | ا | Alef variants → bare Alef |
+| ى | ي | Alef Maksura → Ya |
+| ة | ه | Taa Marbuta → Ha |
+| ـ | *(removed)* | Tatweel (kashida) stripped |
 
-```json
-{
-  "analyzer": {
-    "type": "arabic"
-  }
-}
+## Example
+
+```rust
+use pizza_engine::analysis::AnalysisFactory;
+
+let mut factory = AnalysisFactory::new();
+pizza_analysis_arabic::register_all(&mut factory);
+
+let analyzer = factory.get_analyzer("arabic").unwrap();
 ```
 
-### Custom Pipeline
+## Installation
 
-```json
-{
-  "analyzer": {
-    "type": "custom",
-    "tokenizer": "standard",
-    "filter": ["arabic_normalization", "arabic_stem", "arabic_stop"]
-  }
-}
+```toml
+[dependencies]
+pizza-analysis-arabic = "0.1"
+```
+
+Or via `pizza-analysis-all`:
+
+```toml
+[dependencies]
+pizza-analysis-all = { version = "0.1", features = ["arabic"] }
 ```
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT
 
-## Related Crates
+---
 
-- [analysis-core](https://github.com/pizza-rs/analysis-core) — Core analysis components and pipeline
-- [analysis-icu](https://github.com/pizza-rs/analysis-icu) — ICU Unicode normalization and tokenization
-- [analysis-english](https://github.com/pizza-rs/analysis-english) — English analysis
-- [analysis-all](https://github.com/pizza-rs/analysis-all) — Meta-crate registering all analyzers
+<div align="center">
+<sub>Part of the <a href="https://pizza.rs">INFINI Pizza</a> ecosystem</sub>
+</div>
