@@ -3,7 +3,8 @@
 use alloc::borrow::Cow;
 use alloc::string::String;
 use alloc::vec::Vec;
-use pizza_engine::analysis::{Token, TokenFilter};
+use pizza_engine::analysis::Token;
+use pizza_engine::analysis::TokenFilter;
 
 /// Normalizes Arabic text (diacritics removal, alef/yeh/teh normalization).
 ///
@@ -41,8 +42,8 @@ impl TokenFilter for ArabicNormalizationFilter {
                     result.push('\u{0647}');
                     changed = true;
                 }
-                '\u{0640}' | '\u{064B}' | '\u{064C}' | '\u{064D}' | '\u{064E}' |
-                '\u{064F}' | '\u{0650}' | '\u{0651}' | '\u{0652}' => {
+                '\u{0640}' | '\u{064B}' | '\u{064C}' | '\u{064D}' | '\u{064E}' | '\u{064F}'
+                | '\u{0650}' | '\u{0651}' | '\u{0652}' => {
                     changed = true;
                 }
                 _ => {

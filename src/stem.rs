@@ -3,7 +3,8 @@
 use alloc::borrow::Cow;
 use alloc::string::String;
 use alloc::vec::Vec;
-use pizza_engine::analysis::{Token, TokenFilter};
+use pizza_engine::analysis::Token;
+use pizza_engine::analysis::TokenFilter;
 
 /// Arabic stemmer that removes common prefixes and suffixes.
 ///
@@ -20,25 +21,25 @@ impl ArabicStemFilter {
 
 /// Arabic definite article and common prefixes.
 const PREFIXES: &[&str] = &[
-    "\u{0627}\u{0644}",   // al (definite article)
+    "\u{0627}\u{0644}",         // al (definite article)
     "\u{0648}\u{0627}\u{0644}", // wal
     "\u{0628}\u{0627}\u{0644}", // bal
     "\u{0643}\u{0627}\u{0644}", // kal
     "\u{0641}\u{0627}\u{0644}", // fal
-    "\u{0644}\u{0644}",   // ll
+    "\u{0644}\u{0644}",         // ll
 ];
 
 /// Common Arabic suffixes.
 const SUFFIXES: &[&str] = &[
-    "\u{0647}\u{0627}",   // ha
-    "\u{0627}\u{0646}",   // an
-    "\u{0627}\u{062A}",   // at
-    "\u{0648}\u{0646}",   // wn
-    "\u{064A}\u{0646}",   // yn
-    "\u{064A}\u{0629}",   // yp
-    "\u{064A}\u{0647}",   // yh
-    "\u{0629}",           // p (teh marbuta)
-    "\u{0647}",           // h
+    "\u{0647}\u{0627}", // ha
+    "\u{0627}\u{0646}", // an
+    "\u{0627}\u{062A}", // at
+    "\u{0648}\u{0646}", // wn
+    "\u{064A}\u{0646}", // yn
+    "\u{064A}\u{0629}", // yp
+    "\u{064A}\u{0647}", // yh
+    "\u{0629}",         // p (teh marbuta)
+    "\u{0647}",         // h
 ];
 
 impl TokenFilter for ArabicStemFilter {

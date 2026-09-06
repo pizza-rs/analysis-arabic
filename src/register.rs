@@ -4,16 +4,24 @@ use alloc::boxed::Box;
 use alloc::vec;
 use alloc::vec::Vec;
 
-use pizza_engine::analysis::{
-    Analyzer, AnalysisFactory, LowercaseNormalizer, Normalizer, StandardTokenizer, TokenFilter,
-    Tokenizer,
-};
+use pizza_engine::analysis::AnalysisFactory;
+use pizza_engine::analysis::Analyzer;
+use pizza_engine::analysis::LowercaseNormalizer;
+use pizza_engine::analysis::Normalizer;
+use pizza_engine::analysis::StandardTokenizer;
+use pizza_engine::analysis::TokenFilter;
+use pizza_engine::analysis::Tokenizer;
 
-use crate::{ArabicNormalizationFilter, ArabicStemFilter, ArabicStopFilter};
+use crate::ArabicNormalizationFilter;
+use crate::ArabicStemFilter;
+use crate::ArabicStopFilter;
 
 /// Register Arabic token filters and the `"arabic"` analyzer.
 pub fn register_all(factory: &mut AnalysisFactory) {
-    factory.register_token_filter("arabic_normalization", Box::new(ArabicNormalizationFilter::new()));
+    factory.register_token_filter(
+        "arabic_normalization",
+        Box::new(ArabicNormalizationFilter::new()),
+    );
     factory.register_token_filter("arabic_stem", Box::new(ArabicStemFilter::new()));
     factory.register_token_filter("arabic_stop", Box::new(ArabicStopFilter::new()));
 

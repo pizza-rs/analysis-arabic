@@ -1,7 +1,9 @@
 //! Comprehensive tests for pizza-analysis-arabic.
 
 use pizza_analysis_arabic::*;
-use pizza_engine::analysis::{AnalysisFactory, Token, TokenFilter};
+use pizza_engine::analysis::AnalysisFactory;
+use pizza_engine::analysis::Token;
+use pizza_engine::analysis::TokenFilter;
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // Helpers
@@ -59,7 +61,10 @@ fn normalization_alef_forms() {
     let mut token = make_token("أحمد");
     let (deleted, _) = f.filter(&mut token);
     assert!(!deleted);
-    assert!(token.term.starts_with("ا"), "alef hamza should be normalized to bare alef");
+    assert!(
+        token.term.starts_with("ا"),
+        "alef hamza should be normalized to bare alef"
+    );
 }
 
 #[test]
@@ -69,7 +74,10 @@ fn normalization_alef_maddah() {
     let mut token = make_token("آمال");
     let (deleted, _) = f.filter(&mut token);
     assert!(!deleted);
-    assert!(token.term.starts_with("ا"), "alef maddah should be normalized");
+    assert!(
+        token.term.starts_with("ا"),
+        "alef maddah should be normalized"
+    );
 }
 
 #[test]
@@ -79,7 +87,10 @@ fn normalization_teh_marbuta() {
     let mut token = make_token("مدرسة");
     let (deleted, _) = f.filter(&mut token);
     assert!(!deleted);
-    assert!(!token.term.contains('ة'), "teh marbuta should be normalized to heh");
+    assert!(
+        !token.term.contains('ة'),
+        "teh marbuta should be normalized to heh"
+    );
 }
 
 #[test]
@@ -89,7 +100,10 @@ fn normalization_tatweel() {
     let mut token = make_token("كـتـاب");
     let (deleted, _) = f.filter(&mut token);
     assert!(!deleted);
-    assert!(!token.term.contains('\u{0640}'), "tatweel should be removed");
+    assert!(
+        !token.term.contains('\u{0640}'),
+        "tatweel should be removed"
+    );
 }
 
 #[test]
