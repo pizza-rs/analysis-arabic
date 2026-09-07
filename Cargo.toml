@@ -10,10 +10,11 @@ keywords = ["pizza", "arabic", "stemmer", "normalization", "nlp"]
 
 [features]
 default = []
-std = ["pizza-engine/std", "once_cell/std"]
+std = ["pizza-engine/std", "once_cell/std", "pizza-analysis-core/std"]
 
 [dependencies]
 pizza-engine = { path = "../../lib/engine", default-features = false }
+pizza-analysis-core = { path = "../analysis-core", default-features = false, features = ["std"] }
 hashbrown = { version = "0.14", default-features = false }
 once_cell = { version = "1", default-features = false, features = ["alloc"] }
 
